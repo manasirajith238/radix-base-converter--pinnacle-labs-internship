@@ -19,7 +19,7 @@
         <span class="brand-mark">‖</span>
         <div>
           <h1>Radix</h1>
-          <p class="tagline">a ledger for numbers in other tongues</p>
+          <p class="tagline"></p>
         </div>
       </div>
       <div class="status" id="serverStatus" data-state="checking">
@@ -101,35 +101,7 @@
       </div>
     </section>
 
-    <section class="about-panel">
-      <h2>How it's wired</h2>
-      <div class="about-grid">
-        <div class="about-card">
-          <span class="about-index">01</span>
-          <h3>Frontend</h3>
-          <p>Plain HTML, CSS and JavaScript. No frameworks — just <code>fetch()</code> calls to the API as you type, debounced so the backend isn't hit on every keystroke.</p>
-        </div>
-        <div class="about-card">
-          <span class="about-index">02</span>
-          <h3>Backend</h3>
-          <p>A single-file C++17 program opens a raw socket, speaks just enough HTTP to be useful, and does the actual base arithmetic with arbitrary-precision integers — so it isn't capped at 64 bits.</p>
-        </div>
-        <div class="about-card">
-          <span class="about-index">03</span>
-          <h3>The API</h3>
-          <p><code>GET /api/convert?value=FF&amp;from=16&amp;to=2</code> returns JSON with the decimal value plus binary, octal, hex, and your chosen base.</p>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="page-footer">
-    <div class="wrap">
-      <p>Run <code>./server</code> locally, then open this page — see README for build instructions.</p>
-    </div>
-  </footer>
-
+   
 <script src="script.js"></script>
 </body>
 </html>
