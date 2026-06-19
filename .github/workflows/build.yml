@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: g++ -O2 -std=c++17 -o server server.cpp
+      - name: Smoke test
+        run: |
+          ./server 8080 &
+          sleep 1
+          curl -sf "http://localhost:8080/api/convert?value=FF&from=16" | grep -q '"decimal":"255"'
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: g++ -O2 -std=c++17 -o server.exe server.cpp -lws2_32

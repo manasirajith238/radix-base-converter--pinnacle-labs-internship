@@ -1,0 +1,16 @@
+# Build output
+server
+server.exe
+*.o
+*.obj
+*.exe
+*.out
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# OS junk
+.DS_Store
+Thumbs.db

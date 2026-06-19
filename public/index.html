@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Radix — Number Base Converter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="grain"></div>
+
+  <header class="page-header">
+    <div class="wrap header-row">
+      <div class="brand">
+        <span class="brand-mark">‖</span>
+        <div>
+          <h1>Radix</h1>
+          <p class="tagline">a ledger for numbers in other tongues</p>
+        </div>
+      </div>
+      <div class="status" id="serverStatus" data-state="checking">
+        <span class="status-dot"></span>
+        <span class="status-text">checking backend…</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Hero: live quad-base register -->
+    <section class="ledger-panel" aria-label="Live base converter">
+      <div class="ledger-head">
+        <h2>Type in any base. Watch the rest follow.</h2>
+        <p>Every field below holds the same quantity, written four different ways. Edit one — the C++ backend recalculates the others.</p>
+      </div>
+
+      <div class="register" id="register">
+        <div class="cell" data-base="2">
+          <label for="binField"><span class="cell-name">Binary</span><span class="cell-base">base 2</span></label>
+          <input id="binField" inputmode="text" autocomplete="off" spellcheck="false" placeholder="0" />
+        </div>
+        <div class="cell" data-base="8">
+          <label for="octField"><span class="cell-name">Octal</span><span class="cell-base">base 8</span></label>
+          <input id="octField" inputmode="text" autocomplete="off" spellcheck="false" placeholder="0" />
+        </div>
+        <div class="cell" data-base="10">
+          <label for="decField"><span class="cell-name">Decimal</span><span class="cell-base">base 10</span></label>
+          <input id="decField" inputmode="text" autocomplete="off" spellcheck="false" placeholder="0" value="255" />
+        </div>
+        <div class="cell" data-base="16">
+          <label for="hexField"><span class="cell-name">Hexadecimal</span><span class="cell-base">base 16</span></label>
+          <input id="hexField" inputmode="text" autocomplete="off" spellcheck="false" placeholder="0" />
+        </div>
+      </div>
+
+      <p class="register-note" id="registerNote" role="status" aria-live="polite">&nbsp;</p>
+    </section>
+
+    <!-- Custom base + place-value ledger (signature element) -->
+    <section class="custom-panel" aria-label="Custom base converter">
+      <div class="custom-head">
+        <h2>Any base, 2 through 36</h2>
+        <p>Letters A–Z stand in once digits run out of fingers to count on.</p>
+      </div>
+
+      <form class="custom-form" id="customForm">
+        <div class="field">
+          <label for="customValue">Value</label>
+          <input id="customValue" type="text" autocomplete="off" spellcheck="false" value="255" />
+        </div>
+        <div class="field field-narrow">
+          <label for="customFrom">From base</label>
+          <input id="customFrom" type="number" min="2" max="36" value="10" />
+        </div>
+        <div class="swap-icon" aria-hidden="true">→</div>
+        <div class="field field-narrow">
+          <label for="customTo">To base</label>
+          <input id="customTo" type="number" min="2" max="36" value="3" />
+        </div>
+        <button type="submit" class="convert-btn">Convert</button>
+      </form>
+
+      <p class="custom-error" id="customError" role="alert"></p>
+
+      <div class="ledger-result" id="ledgerResult" hidden>
+        <div class="ledger-result-value">
+          <span class="ledger-result-label">Result</span>
+          <span class="ledger-result-number" id="ledgerResultNumber"></span>
+        </div>
+
+        <div class="place-value-table" aria-label="Place value breakdown">
+          <div class="pv-row pv-powers" id="pvPowers"></div>
+          <div class="pv-row pv-digits" id="pvDigits"></div>
+          <div class="pv-row pv-values" id="pvValues"></div>
+        </div>
+        <p class="pv-sum" id="pvSum"></p>
+      </div>
+    </section>
+
+    <section class="about-panel">
+      <h2>How it's wired</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <span class="about-index">01</span>
+          <h3>Frontend</h3>
+          <p>Plain HTML, CSS and JavaScript. No frameworks — just <code>fetch()</code> calls to the API as you type, debounced so the backend isn't hit on every keystroke.</p>
+        </div>
+        <div class="about-card">
+          <span class="about-index">02</span>
+          <h3>Backend</h3>
+          <p>A single-file C++17 program opens a raw socket, speaks just enough HTTP to be useful, and does the actual base arithmetic with arbitrary-precision integers — so it isn't capped at 64 bits.</p>
+        </div>
+        <div class="about-card">
+          <span class="about-index">03</span>
+          <h3>The API</h3>
+          <p><code>GET /api/convert?value=FF&amp;from=16&amp;to=2</code> returns JSON with the decimal value plus binary, octal, hex, and your chosen base.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="page-footer">
+    <div class="wrap">
+      <p>Run <code>./server</code> locally, then open this page — see README for build instructions.</p>
+    </div>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>

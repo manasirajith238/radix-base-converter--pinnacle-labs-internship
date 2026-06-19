@@ -1,0 +1,10 @@
+# Normalize line endings for everyone, regardless of OS
+* text=auto eol=lf
+
+# These are definitely text and should be normalized
+*.cpp text
+*.h text
+*.html text
+*.css text
+*.js text
+*.md text
